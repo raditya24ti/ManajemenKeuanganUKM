@@ -1,5 +1,4 @@
-@extends('admin.layout.app')
-@section('title','Dashboard')
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,11 +12,11 @@
     <meta name="author" content="Themesberg">
 
     <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="120x120" href="../../assets/img/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/img/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/img/favicon/favicon-16x16.png">
-    <link rel="manifest" href="../../assets/img/favicon/site.webmanifest">
-    <link rel="mask-icon" href="../../assets/img/favicon/safari-pinned-tab.svg" color="#ffffff">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('assets/img/favicon/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/img/favicon/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ asset('assets/img/favicon/site.webmanifest') }}">
+    <link rel="mask-icon" href="{{ asset('assets/img/favicon/safari-pinned-tab.svg') }}" color="#ffffff">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
 
@@ -25,8 +24,8 @@
     <!-- Before -->
     <!-- <link type="text/css" href="../../css/volt.css" rel="stylesheet">-->
 
-    {{-- After --}}
-    @include('admin.layout.css')
+    <!-- Material Dashboard CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/material-dashboard.min.css') }}">
 
 </head>
 
@@ -38,8 +37,8 @@
             <!--<img class="navbar-brand-light" src="../../img/brand/dark.svg" alt="Volt logo" />-->
 
             <!-- After -->
-            <img class="navbar-brand-dark" src="{{ asset('assets-admin/img/brand/light.svg') }}" alt="Volt logo" />
-            <img class="navbar-brand-light" src="{{ asset('assets-admin/img/brand/dark.svg') }}" alt="Volt logo" />
+            <img class="navbar-brand-dark" src="{{ asset('assets/img/brand/light.svg') }}" alt="Volt logo" />
+            <img class="navbar-brand-light" src="{{ asset('assets/img/brand/dark.svg') }}" alt="Volt logo" />
         </a>
         <div class="d-flex align-items-center">
             <button class="navbar-toggler d-lg-none collapsed" type="button" data-bs-toggle="collapse"
@@ -224,7 +223,7 @@
                                                 <!-- Avatar -->
                                                 <a href="#" class="avatar">
                                                     <img class="rounded" alt="Image placeholder"
-                                                        src="../../assets-admin/img/team/profile-picture-1.jpg">
+                                                        src="{{ asset('assets/img/team/profile-picture-1.jpg') }}">
                                                 </a>
                                             </div>
                                             <div class="col-auto ms--2">
@@ -256,7 +255,7 @@
                                                 <!-- Avatar -->
                                                 <a href="#" class="avatar">
                                                     <img class="rounded" alt="Image placeholder"
-                                                        src="../../assets-admin/img/team/profile-picture-2.jpg">
+                                                        src="{{ asset('assets/img/team/profile-picture-2.jpg') }}">
                                                 </a>
                                             </div>
                                             <div class="col-auto ms--2">
@@ -288,7 +287,7 @@
                                                 <!-- Avatar -->
                                                 <a href="#" class="avatar">
                                                     <img class="rounded" alt="Image placeholder"
-                                                        src="../../assets-admin/img/team/profile-picture-3.jpg">
+                                                        src="{{ asset('assets/img/team/profile-picture-3.jpg') }}">
                                                 </a>
                                             </div>
                                             <div class="col-auto ms--2">
@@ -320,7 +319,7 @@
                                                 <!-- Avatar -->
                                                 <a href="#" class="avatar">
                                                     <img class="rounded" alt="Image placeholder"
-                                                        src="../../assets-admin/img/team/profile-picture-4.jpg">
+                                                        src="{{ asset('assets/img/team/profile-picture-4.jpg') }}">
                                                 </a>
                                             </div>
                                             <div class="col-auto ms--2">
@@ -468,7 +467,7 @@
                         <div class="profile-cover rounded-top" data-background="../../assets/img/profile-cover.jpg"
                             style="background: url(&quot;../../assets/img/profile-cover.jpg&quot;);"></div>
                         <div class="card-body pb-5">
-                            <img src="../../assets-admin/img/team/profile-picture-1.jpg"
+                            <img src="../../assets/img/team/profile-picture-1.jpg"
                                 class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="Neil Portrait">
                             <h4 class="h3">Neil Sims</h4>
                             <h5 class="fw-normal">Senior Software Engineer</h5>
