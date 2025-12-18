@@ -1,59 +1,150 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistem Manajemen Keuangan UKM
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistem manajemen keuangan lengkap untuk UKM (Usaha Kecil Menengah) dengan berbagai fitur untuk mengelola keuangan organisasi.
 
-## About Laravel
+## Fitur Utama
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 1. Dashboard Keuangan
+- Ringkasan saldo, pemasukan, dan pengeluaran
+- Grafik pemasukan & pengeluaran bulanan
+- Statistik cepat (penggunaan anggaran, pengajuan pending, iuran terlambat)
+- Transaksi terbaru
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 2. Pencatatan Transaksi
+- Input pemasukan & pengeluaran
+- Kategori transaksi
+- Tanggal dan keterangan lengkap
+- Filter berdasarkan tipe, kategori, dan tanggal
+- Status transaksi (pending, completed, cancelled)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 3. Manajemen Anggaran
+- Perencanaan budget kegiatan
+- Perbandingan anggaran vs realisasi
+- Tracking penggunaan anggaran
+- Status anggaran (draft, active, completed, cancelled)
 
-## Learning Laravel
+### 4. Laporan Keuangan
+- Laporan transaksi
+- Laporan arus kas
+- Laporan anggaran
+- Laporan iuran anggota
+- Export PDF/Excel (placeholder - perlu library tambahan)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### 5. Manajemen Pengguna & Hak Akses
+- 4 level akses: Ketua, Bendahara, Pengurus, Anggota
+- Manajemen user (hanya ketua & bendahara)
+- Role-based access control
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 6. Pengajuan & Persetujuan Dana
+- Alur pengajuan dana kegiatan
+- Approval system (ketua & bendahara)
+- Link ke anggaran
+- Notifikasi otomatis
 
-## Laravel Sponsors
+### 7. Iuran Anggota
+- Pencatatan iuran per periode
+- Tracking pembayaran
+- Status iuran (pending, paid, overdue, waived)
+- Auto-create transaksi saat pembayaran
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 8. Dokumen & Bukti Transaksi
+- Upload nota, proposal, bukti pembayaran
+- Polimorfik relationship (dapat diattach ke transaksi, pengajuan, iuran, anggaran)
+- Download dokumen
 
-### Premium Partners
+### 9. Notifikasi & Reminder
+- Notifikasi pengajuan dana
+- Reminder iuran
+- Notifikasi approval/rejection
+- Badge unread count
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 10. Audit Trail / Riwayat Aktivitas
+- Catatan semua perubahan data
+- Tracking user, action, dan timestamp
+- Old values & new values
+- IP address & user agent
 
-## Contributing
+## Instalasi
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+1. Clone repository atau extract project
+2. Install dependencies:
+```bash
+composer install
+npm install
+```
 
-## Code of Conduct
+3. Setup environment:
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+4. Konfigurasi database di `.env`
 
-## Security Vulnerabilities
+5. Jalankan migrations dan seeders:
+```bash
+php artisan migrate
+php artisan db:seed
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+6. Buat symbolic link untuk storage:
+```bash
+php artisan storage:link
+```
 
-## License
+7. Jalankan server:
+```bash
+php artisan serve
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Default Login
+
+Setelah menjalankan seeder, gunakan akun berikut:
+
+- **Ketua**: ketua@ukm.com / password
+- **Bendahara**: bendahara@ukm.com / password
+- **Pengurus**: pengurus@ukm.com / password
+- **Anggota**: anggota1@ukm.com / password
+
+## Struktur Database
+
+### Tabel Utama:
+- `users` - Data pengguna dengan role
+- `categories` - Kategori transaksi
+- `transactions` - Transaksi keuangan
+- `budgets` - Anggaran kegiatan
+- `fund_requests` - Pengajuan dana
+- `member_dues` - Iuran anggota
+- `documents` - Dokumen/bukti transaksi
+- `notifications` - Notifikasi sistem
+- `audit_trails` - Riwayat aktivitas
+
+## Teknologi
+
+- Laravel 12
+- Bootstrap 5
+- Chart.js (untuk grafik)
+- Font Awesome (icons)
+
+## Catatan Pengembangan
+
+### Export PDF/Excel
+Fitur export PDF dan Excel masih placeholder. Untuk implementasi lengkap, install:
+- **PDF**: `barryvdh/laravel-dompdf` atau `spatie/laravel-pdf`
+- **Excel**: `maatwebsite/excel`
+
+Contoh instalasi:
+```bash
+composer require barryvdh/laravel-dompdf
+composer require maatwebsite/excel
+```
+
+### Notifikasi Real-time
+Untuk notifikasi real-time, pertimbangkan menggunakan Laravel Echo + Pusher/Broadcasting.
+
+### File Storage
+Pastikan folder `storage/app/public/documents` writable untuk upload dokumen.
+
+## Lisensi
+
+Project ini dibuat untuk keperluan UKM.

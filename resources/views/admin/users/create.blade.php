@@ -1,0 +1,71 @@
+@extends('layouts.app')
+
+@section('title', 'Tambah Pengguna')
+
+@section('content')
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        <form action="{{ route('users.store') }}" method="POST">
+            @csrf
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Nama <span class="text-danger">*</span></label>
+                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" 
+                           value="{{ old('name') }}" required>
+                    @error('name')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Email <span class="text-danger">*</span></label>
+                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" 
+                           value="{{ old('email') }}" required>
+                    @error('email')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Password <span class="text-danger">*</span></label>
+                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" required>
+                    @error('password')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Konfirmasi Password <span class="text-danger">*</span></label>
+                    <input type="password" name="password_confirmation" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Role <span class="text-danger">*</span></label>
+                    <select name="role" class="form-select @error('role') is-invalid @enderror" required>
+                        <option value="anggota" {{ old('role') === 'anggota' ? 'selected' : '' }}>Anggota</option>
+                        <option value="pengurus" {{ old('role') === 'pengurus' ? 'selected' : '' }}>Pengurus</option>
+                        <option value="bendahara" {{ old('role') === 'bendahara' ? 'selected' : '' }}>Bendahara</option>
+                        <option value="ketua" {{ old('role') === 'ketua' ? 'selected' : '' }}>Ketua</option>
+                    </select>
+                    @error('role')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Telepon</label>
+                    <input type="text" name="phone" class="form-control" value="{{ old('phone') }}">
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label class="form-label">Alamat</label>
+                    <textarea name="address" class="form-control" rows="2">{{ old('address') }}</textarea>
+                </div>
+                <div class="col-md-12 mb-3 form-check">
+                    <input type="checkbox" name="is_active" class="form-check-input" id="is_active" checked>
+                    <label class="form-check-label" for="is_active">Aktif</label>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end">
+                <a href="{{ route('users.index') }}" class="btn btn-secondary me-2">Batal</a>
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+        </form>
+    </div>
+</div>
+@endsection
+
