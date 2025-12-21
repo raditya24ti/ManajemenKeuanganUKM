@@ -2,12 +2,13 @@
     
     <h5 class="text-white mb-4">Finance App</h5>
 
-    <div class="profile-box text-center mb-4">
-        <img src="https://ui-avatars.com/api/?name={{ auth()->user()->name ?? 'User' }}&background=cbd5e1&color=0f172a"
-             class="rounded-circle mb-2" width="60">
-        <div class="fw-semibold text-white">{{ auth()->user()->name ?? 'Admin' }}</div>
-        <small class="text-muted">Administrator</small>
-    </div>
+   <div class="profile-box text-center mb-4">
+    <img src="https://ui-avatars.com/api/?name={{ auth()->user()->name ?? 'User' }}&background=cbd5e1&color=0f172a"
+         class="rounded-circle mb-2" width="50">
+    <div class="fw-semibold text-white">{{ auth()->user()->name ?? 'Admin' }}</div>
+    
+    <small class="text-white">Administrator</small> 
+</div>
 
     <ul class="nav flex-column">
         <li class="nav-item mb-1">

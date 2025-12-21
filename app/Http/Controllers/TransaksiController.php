@@ -8,14 +8,30 @@ use App\Models\Transaksi;
 
 class TransaksiController extends Controller
 {
-    public function index()
+   public function index(Request $request)
 {
-    $transaksi = Transaksi::latest()->get();
+    // Menggunakan query builder agar bisa ditambah filter secara dinamis
+    $query = Transaksi::query();
 
-    // SESUAIKAN DENGAN FOLDER VIEW
+    // 1. Fitur Search (berdasarkan keterangan atau kategori)
+    if ($request->has('search') && $request->search != '') {
+        $query->where(function($q) use ($request) {
+            $q->where('keterangan', 'like', '%' . $request->search . '%')
+              ->orWhere('kategori', 'like', '%' . $request->search . '%');
+        });
+    }
+
+    // 2. Fitur Filter (berdasarkan jenis: masuk/keluar)
+    if ($request->has('jenis') && $request->jenis != '') {
+        $query->where('jenis', $request->jenis);
+    }
+
+    // 3. Fitur Pagination (menampilkan 10 data per halaman)
+    // withQueryString() penting agar saat pindah halaman, filter search tidak hilang
+    $transaksi = $query->latest()->paginate(10)->withQueryString();
+
     return view('admin.transaksi.index', compact('transaksi'));
 }
-
 
     public function create()
     {

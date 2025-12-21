@@ -1,152 +1,155 @@
 @extends('layouts.app')
-@section('title','Dashboard')
+@section('title','Dashboard Keuangan UKM')
 
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid py-4">
 
-    {{-- HEADER --}}
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h3 class="fw-semibold mb-1">Dashboard Keuangan</h3>
-            <small class="text-muted">Ringkasan data keuangan UKM</small>
-        </div>
-        <a href="{{ route('transaksi.create') }}" class="btn btn-primary">
-            <i class="fas fa-plus me-2"></i> Tambah Transaksi
-        </a>
+    {{-- HEADER (Tanpa Tombol Tambah agar Dashboard Bersih & Fokus pada Data) --}}
+    <div class="mb-4">
+        <h2 class="text-white fw-bold mb-1">Dashboard Keuangan UKM</h2>
+        <p class="text-secondary mb-0">Laporan ringkas arus kas dan penyerapan anggaran organisasi.</p>
     </div>
 
-    {{-- SUMMARY --}}
+    {{-- SUMMARY CARDS TEMA BIRU (Disesuaikan dengan Warna Logout) --}}
     <div class="row g-3 mb-4">
         @foreach([
-            ['Total Pemasukan','success',$totalMasuk,'fa-arrow-down'],
-            ['Total Pengeluaran','danger',$totalKeluar,'fa-arrow-up'],
-            ['Saldo','primary',$saldo,'fa-wallet'],
-            ['Total Anggaran','info',$totalAnggaran,'fa-chart-pie']
-        ] as [$label,$color,$value,$icon])
+            ['Pemasukan Kas', 'primary', $totalMasuk, 'fa-arrow-trend-up'],
+            ['Pengeluaran Kas', 'info', $totalKeluar, 'fa-arrow-trend-down'],
+            ['Saldo UKM', 'primary', $saldo, 'fa-wallet'],
+            ['Total Anggaran', 'primary', $totalAnggaran, 'fa-chart-pie']
+        ] as [$label, $color, $value, $icon])
         <div class="col-md-3">
-            <div class="card h-100">
-                <div class="card-body d-flex justify-content-between align-items-center">
-                    <div>
-                        <small class="text-muted">{{ $label }}</small>
-                        <h5 class="fw-semibold text-{{ $color }} mb-0">
-                            Rp {{ number_format($value) }}
-                        </h5>
+            <div class="card h-100 bg-dark border-primary border-opacity-10 shadow-sm">
+                <div class="card-body p-3">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <small class="text-secondary text-uppercase fw-semibold small">{{ $label }}</small>
+                        <div class="rounded-circle bg-primary bg-opacity-10 p-2">
+                            <i class="fas {{ $icon }} text-primary"></i>
+                        </div>
                     </div>
-                    <i class="fas {{ $icon }} fa-lg text-{{ $color }} opacity-75"></i>
+                    <h4 class="fw-bold text-white mb-0">
+                        Rp {{ number_format($value, 0, ',', '.') }}
+                    </h4>
                 </div>
             </div>
         </div>
         @endforeach
     </div>
 
-    {{-- GRAFIK & ANGGARAN --}}
+    {{-- GRAFIK & STATUS ANGGARAN --}}
     <div class="row g-3 mb-4">
+        {{-- GRAFIK TREN BULANAN --}}
         <div class="col-lg-8">
-            <div class="card h-100">
-                <div class="card-header">
-                    Grafik Pemasukan & Pengeluaran Bulanan
+            <div class="card bg-dark border-primary border-opacity-10 h-100 shadow-sm">
+                <div class="card-header bg-transparent border-primary border-opacity-10 py-3 text-white fw-bold">
+                    <i class="fas fa-chart-line me-2 text-primary"></i>Tren Arus Kas Bulanan
                 </div>
                 <div class="card-body">
-                    <canvas id="monthlyChart" height="120"></canvas>
+                    <canvas id="monthlyChart" height="150"></canvas>
                 </div>
             </div>
         </div>
 
+        {{-- STATUS PENYERAPAN ANGGARAN --}}
         <div class="col-lg-4">
-            <div class="card h-100">
-                <div class="card-header">
-                    Penggunaan Anggaran
+            <div class="card bg-dark border-primary border-opacity-10 h-100 shadow-sm">
+                <div class="card-header bg-transparent border-primary border-opacity-10 py-3 text-white fw-bold">
+                    <i class="fas fa-bullseye me-2 text-info"></i>Penyerapan Anggaran
                 </div>
-                <div class="card-body">
-                    <div class="progress mb-3" style="height:18px">
-                        <div class="progress-bar
-                            {{ $persenAnggaran >= 100 ? 'bg-danger' : 'bg-success' }}"
-                            style="width: {{ min($persenAnggaran,100) }}%">
-                            {{ round($persenAnggaran) }}%
-                        </div>
+                <div class="card-body text-center d-flex flex-column justify-content-center">
+                    <h1 class="fw-bold mb-0 text-primary">{{ round($persenAnggaran) }}%</h1>
+                    <p class="text-secondary small mb-3">Anggaran Telah Digunakan</p>
+                    <div class="progress mb-3" style="height:12px; background-color: #1a1a1a;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary shadow-sm" 
+                             style="width: {{ min($persenAnggaran,100) }}%"></div>
                     </div>
-                    <small class="text-muted">
-                        Rp {{ number_format($anggaranTerpakai) }}
-                        dari Rp {{ number_format($totalAnggaran) }}
-                    </small>
+                    <div class="d-flex justify-content-between small text-white-50">
+                        <span>Limit: Rp {{ number_format($totalAnggaran, 0, ',', '.') }}</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    {{-- PENGELUARAN PER KATEGORI --}}
-    <div class="card mb-4">
-        <div class="card-header">
-            Pengeluaran per Kategori
-        </div>
-        <ul class="list-group list-group-flush">
-            @forelse($kategori as $k)
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                {{ $k->kategori }}
-                <span class="fw-semibold">
-                    Rp {{ number_format($k->total) }}
-                </span>
-            </li>
-            @empty
-            <li class="list-group-item text-center text-muted">
-                Belum ada data kategori
-            </li>
-            @endforelse
-        </ul>
-    </div>
-
-    {{-- TRANSAKSI TERBARU --}}
-    <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <span>Transaksi Terbaru</span>
-            <a href="{{ route('transaksi.index') }}"
-               class="btn btn-sm btn-outline-primary">
-                Lihat Semua
-            </a>
-        </div>
-        <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
-                <thead class="table-light">
-                    <tr>
-                        <th>Tanggal</th>
-                        <th>Kategori</th>
-                        <th>Jenis</th>
-                        <th>Jumlah</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($transaksiTerbaru as $t)
-                    <tr>
-                        <td>{{ $t->tanggal }}</td>
-                        <td>{{ $t->kategori }}</td>
-                        <td>
-                            <span class="badge {{ $t->jenis=='masuk'?'bg-success':'bg-danger' }}">
-                                {{ ucfirst($t->jenis) }}
-                            </span>
-                        </td>
-                        <td>Rp {{ number_format($t->jumlah) }}</td>
-                    </tr>
+    <div class="row g-3">
+        {{-- RINGKASAN PENGELUARAN PER KATEGORI --}}
+        <div class="col-md-5">
+            <div class="card bg-dark border-primary border-opacity-10 h-100 shadow-sm">
+                <div class="card-header bg-transparent border-primary border-opacity-10 py-3 text-white fw-bold">
+                    <i class="fas fa-tags me-2 text-info"></i>Pengeluaran per Kategori
+                </div>
+                <ul class="list-group list-group-flush bg-transparent">
+                    @forelse($kategori as $k)
+                    <li class="list-group-item bg-transparent border-primary border-opacity-10 d-flex justify-content-between align-items-center text-white-50 py-3">
+                        {{ $k->kategori }}
+                        <span class="fw-bold text-white">
+                            Rp {{ number_format($k->total, 0, ',', '.') }}
+                        </span>
+                    </li>
                     @empty
-                    <tr>
-                        <td colspan="4" class="text-center text-muted">
-                            Belum ada transaksi
-                        </td>
-                    </tr>
+                    <li class="list-group-item bg-transparent text-center py-5 text-secondary small">
+                        Belum ada data pengeluaran UKM.
+                    </li>
                     @endforelse
-                </tbody>
-            </table>
+                </ul>
+            </div>
+        </div>
+
+        {{-- DAFTAR TRANSAKSI TERBARU --}}
+        <div class="col-md-7">
+            <div class="card bg-dark border-primary border-opacity-10 h-100 shadow-sm overflow-hidden">
+                <div class="card-header bg-transparent border-primary border-opacity-10 py-3 d-flex justify-content-between align-items-center">
+                    <span class="text-white fw-bold"><i class="fas fa-history me-2 text-primary"></i>Aktivitas Terbaru</span>
+                    <a href="{{ route('transaksi.index') }}" class="btn btn-sm btn-outline-primary border-0">Lihat Semua</a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-dark table-hover align-middle mb-0">
+                        <thead class="bg-primary bg-opacity-10 text-uppercase small text-secondary">
+                            <tr>
+                                <th class="ps-3 py-3">Tanggal</th>
+                                <th>Kategori</th>
+                                <th class="text-center">Jenis</th>
+                                <th class="text-end pe-3">Jumlah</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($transaksiTerbaru as $t)
+                            <tr class="border-bottom border-primary border-opacity-5">
+                                <td class="ps-3 text-white-50 small">{{ $t->tanggal }}</td>
+                                <td class="text-white">{{ $t->kategori }}</td>
+                                <td class="text-center">
+                                    <span class="badge rounded-pill bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 px-3">
+                                        {{ ucfirst($t->jenis) }}
+                                    </span>
+                                </td>
+                                <td class="text-end pe-3 fw-bold">Rp {{ number_format($t->jumlah, 0, ',', '.') }}</td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="4" class="text-center py-5 text-secondary small">Belum ada transaksi tercatat.</td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
-
 </div>
+
+{{-- CSS KHUSUS TEMA GELAP PREISI --}}
+<style>
+    body { background-color: #0d1117; } /* Warna GitHub Dark sesuai template sebelumnya */
+    .card { border: 1px solid rgba(13, 110, 253, 0.1) !important; transition: 0.3s ease; }
+    .card:hover { border-color: rgba(13, 110, 253, 0.3) !important; transform: translateY(-3px); }
+    .progress-bar { background-color: #0d6efd !important; }
+</style>
 @endsection
 
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-const bulan = {!! json_encode(
-    $grafikBulanan->pluck('bulan')->map(fn($b)=>date('M',mktime(0,0,0,$b,1)))
-) !!};
+const bulan = {!! json_encode($grafikBulanan->pluck('bulan')->map(fn($b)=>date('M',mktime(0,0,0,$b,1)))) !!};
 const pemasukan = {!! json_encode($grafikBulanan->pluck('masuk')) !!};
 const pengeluaran = {!! json_encode($grafikBulanan->pluck('keluar')) !!};
 
@@ -155,13 +158,44 @@ new Chart(document.getElementById('monthlyChart'), {
     data: {
         labels: bulan,
         datasets: [
-            { label:'Pemasukan', data:pemasukan, borderColor:'green', tension:.4 },
-            { label:'Pengeluaran', data:pengeluaran, borderColor:'red', tension:.4 }
+            { 
+                label:'Pemasukan', 
+                data:pemasukan, 
+                borderColor:'#0d6efd', 
+                backgroundColor: 'rgba(13, 110, 253, 0.1)',
+                fill: true,
+                tension:.4,
+                pointRadius: 4,
+                pointBackgroundColor: '#0d6efd'
+            },
+            { 
+                label:'Pengeluaran', 
+                data:pengeluaran, 
+                borderColor:'#0dcaf0', 
+                backgroundColor: 'rgba(13, 202, 240, 0.05)',
+                fill: true,
+                tension:.4,
+                pointRadius: 4,
+                pointBackgroundColor: '#0dcaf0'
+            }
         ]
     },
     options: {
         responsive:true,
-        scales:{ y:{ beginAtZero:true } }
+        plugins: {
+            legend: { labels: { color: '#adb5bd', font: { family: 'sans-serif' } } }
+        },
+        scales:{ 
+            y:{ 
+                beginAtZero:true,
+                grid: { color: 'rgba(255,255,255,0.05)' },
+                ticks: { color: '#6c757d' }
+            },
+            x:{
+                grid: { display: false },
+                ticks: { color: '#6c757d' }
+            }
+        }
     }
 });
 </script>
