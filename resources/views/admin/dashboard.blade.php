@@ -149,14 +149,18 @@
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-const bulan = {!! json_encode($grafikBulanan->pluck('bulan')->map(fn($b)=>date('M',mktime(0,0,0,$b,1)))) !!};
-const pemasukan = {!! json_encode($grafikBulanan->pluck('masuk')) !!};
-const pengeluaran = {!! json_encode($grafikBulanan->pluck('keluar')) !!};
+// Penyesuaian agar tidak error jika data kosong
+const dataGrafik = {!! json_encode($grafikBulanan) !!};
+
+const bulanNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const labels = dataGrafik.map(item => bulanNames[item.bulan - 1] || 'Unknown');
+const pemasukan = dataGrafik.map(item => item.masuk);
+const pengeluaran = dataGrafik.map(item => item.keluar);
 
 new Chart(document.getElementById('monthlyChart'), {
     type: 'line',
     data: {
-        labels: bulan,
+        labels: labels,
         datasets: [
             { 
                 label:'Pemasukan', 
@@ -164,9 +168,7 @@ new Chart(document.getElementById('monthlyChart'), {
                 borderColor:'#0d6efd', 
                 backgroundColor: 'rgba(13, 110, 253, 0.1)',
                 fill: true,
-                tension:.4,
-                pointRadius: 4,
-                pointBackgroundColor: '#0d6efd'
+                tension:.4
             },
             { 
                 label:'Pengeluaran', 
@@ -174,25 +176,21 @@ new Chart(document.getElementById('monthlyChart'), {
                 borderColor:'#0dcaf0', 
                 backgroundColor: 'rgba(13, 202, 240, 0.05)',
                 fill: true,
-                tension:.4,
-                pointRadius: 4,
-                pointBackgroundColor: '#0dcaf0'
+                tension:.4
             }
         ]
     },
     options: {
         responsive:true,
         plugins: {
-            legend: { labels: { color: '#adb5bd', font: { family: 'sans-serif' } } }
+            legend: { labels: { color: '#adb5bd' } }
         },
         scales:{ 
             y:{ 
-                beginAtZero:true,
                 grid: { color: 'rgba(255,255,255,0.05)' },
                 ticks: { color: '#6c757d' }
             },
             x:{
-                grid: { display: false },
                 ticks: { color: '#6c757d' }
             }
         }
