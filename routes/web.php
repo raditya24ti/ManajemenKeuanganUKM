@@ -37,12 +37,17 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'role:superadmin'])->group(function () {
     Route::resource('users', UserController::class);
+    Route::get('/anggaran/create', [AnggaranController::class, 'create'])->name('anggaran.create');
+    Route::post('/anggaran', [AnggaranController::class, 'store'])->name('anggaran.store');
+    Route::get('/anggaran/{anggaran}/edit', [AnggaranController::class, 'edit'])->name('anggaran.edit');
+    Route::put('/anggaran/{anggaran}', [AnggaranController::class, 'update'])->name('anggaran.update');
+    Route::delete('/anggaran/{anggaran}', [AnggaranController::class, 'destroy'])->name('anggaran.destroy');
 });
 
 
 Route::middleware(['auth', 'role:superadmin,staff'])->group(function () {
     Route::resource('transaksi', TransaksiController::class);
-    Route::resource('anggaran', AnggaranController::class);
+    
 });
 
 
