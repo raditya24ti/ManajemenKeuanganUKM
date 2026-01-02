@@ -38,6 +38,11 @@ class TransaksiController extends Controller
         return view('admin.transaksi.create');
     }
 
+public function edit(Transaksi $transaksi)
+{
+    return view('admin.transaksi.edit', compact('transaksi'));
+}
+
  public function store(Request $request)
 {
     $validated = $request->validate([
@@ -57,7 +62,7 @@ class TransaksiController extends Controller
     }
 
     // Gunakan $validated untuk keamanan
-    Transaksi::create($validated); 
+    Transaksi::create($validated);
 
     return redirect()->route('transaksi.index')
         ->with('success', 'Transaksi berhasil disimpan!');

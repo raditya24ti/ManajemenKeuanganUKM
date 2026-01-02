@@ -71,7 +71,7 @@ class User extends Authenticatable
     return match ($this->role) {
         'superadmin' => 'danger',
         'staff' => 'primary',
-        default => 'dark',
+        'user' => 'dark',
     };
 }
 

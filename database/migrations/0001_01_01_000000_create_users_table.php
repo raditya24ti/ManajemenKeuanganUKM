@@ -17,12 +17,12 @@ public function up(): void
         $table->string('email')->unique();
         $table->timestamp('email_verified_at')->nullable();
         $table->string('password');
-        
+
         // TAMBAHKAN 3 BARIS INI
        $table->string('role')->default('user');
 $table->string('phone')->nullable();
 $table->boolean('is_active')->default(true);
-        
+
         $table->rememberToken();
         $table->timestamps();
     });
@@ -33,7 +33,7 @@ $table->boolean('is_active')->default(true);
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('superadmin');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
     }
