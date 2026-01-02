@@ -8,12 +8,27 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function index()
-    {
-        $users = User::orderBy('role')->orderBy('name')->paginate(20);
-        return view('admin.users.index', compact('users'));
+public function index(Request $request)
+{
+    // 1️⃣ BUAT QUERY TERLEBIH DAHULU
+    $query = User::query();
+
+    // 2️⃣ BARU GUNAKAN QUERY
+    if ($request->filled('search')) {
+        $query->where(function ($q) use ($request) {
+            $q->where('name', 'like', '%' . $request->search . '%')
+              ->orWhere('email', 'like', '%' . $request->search . '%');
+        });
     }
 
+    // 3️⃣ EKSEKUSI QUERY
+    $users = $query->orderBy('role')
+                   ->orderBy('name')
+                   ->paginate(20)
+                   ->withQueryString();
+
+    return view('admin.users.index', compact('users'));
+}
     public function create()
     {
         return view('admin.users.create');
