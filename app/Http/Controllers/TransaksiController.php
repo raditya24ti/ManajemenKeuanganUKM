@@ -54,12 +54,13 @@ public function edit(Transaksi $transaksi)
         'bukti_pembayaran' => 'nullable|image|max:2048',
     ]);
 
-    if ($request->hasFile('bukti_pembayaran')) {
-        $file = $request->file('bukti_pembayaran');
-        $nama_file = time() . "_" . $file->getClientOriginalName();
-        $file->move(public_path('uploads/bukti'), $nama_file);
-        $validated['bukti_pembayaran'] = $nama_file; // Masukkan nama file ke data validasi
-    }
+if ($request->hasFile('bukti_pembayaran')) {
+    $path = $request->file('bukti_pembayaran')
+        ->store('bukti', 'public');
+
+    $validated['bukti_pembayaran'] = $path;
+}
+
 
     // Gunakan $validated untuk keamanan
     Transaksi::create($validated);
