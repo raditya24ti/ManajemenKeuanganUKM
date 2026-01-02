@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\AuditTrail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -26,17 +25,14 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|in:ketua,bendahara,pengurus,anggota',
+            'role' => 'required|in:superadmin,staff,user',
             'phone' => 'nullable|string',
-            'address' => 'nullable|string',
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
         $validated['is_active'] = $request->has('is_active');
 
         $user = User::create($validated);
-
-        AuditTrail::log('create', $user, 'User baru dibuat: ' . $user->name);
 
         return redirect()->route('users.index')
             ->with('success', 'User berhasil ditambahkan');
@@ -55,9 +51,8 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8|confirmed',
-            'role' => 'required|in:ketua,bendahara,pengurus,anggota',
+            'role' => 'required|in:superadmin,staff,user',
             'phone' => 'nullable|string',
-            'address' => 'nullable|string',
         ]);
 
         if (!empty($validated['password'])) {
@@ -70,7 +65,6 @@ class UserController extends Controller
 
         $user->update($validated);
 
-        AuditTrail::log('update', $user, 'User diperbarui: ' . $user->name, $oldValues, $user->toArray());
 
         return redirect()->route('users.index')
             ->with('success', 'User berhasil diperbarui');
@@ -83,7 +77,6 @@ class UserController extends Controller
                 ->with('error', 'Tidak dapat menghapus akun sendiri');
         }
 
-        AuditTrail::log('delete', $user, 'User dihapus: ' . $user->name);
         $user->delete();
 
         return redirect()->route('users.index')

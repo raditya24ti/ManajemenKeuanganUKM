@@ -30,9 +30,9 @@
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>
-                            <span class="badge bg-{{ $user->role === 'ketua' ? 'danger' : ($user->role === 'bendahara' ? 'warning' : ($user->role === 'pengurus' ? 'info' : 'secondary')) }}">
-                                {{ ucfirst($user->role) }}
-                            </span>
+                        <span class="badge bg-{{ $user->roleBadge() }}">
+                            {{ ucfirst($user->role) }}
+                        </span>
                         </td>
                         <td>{{ $user->phone ?? '-' }}</td>
                         <td>

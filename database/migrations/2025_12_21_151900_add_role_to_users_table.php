@@ -12,9 +12,9 @@ return new class extends Migration
     public function up() {
         Schema::table('users', function (Blueprint $table) {
             // Kita gunakan condition 'hasColumn' supaya tidak error duplicate lagi
-            if (!Schema::hasColumn('users', 'role')) {
-                $table->string('role')->default('user');
-            }
+                if (!Schema::hasColumn('users', 'role')) {
+                    $table->string('role')->default('user');
+                }
             if (!Schema::hasColumn('users', 'phone')) {
                 $table->string('phone')->nullable();
             }

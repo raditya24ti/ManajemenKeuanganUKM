@@ -24,7 +24,6 @@ class User extends Authenticatable
         'password',
         'role',
         'phone',
-        'address',
         'is_active',
     ];
 
@@ -52,58 +51,32 @@ class User extends Authenticatable
         ];
     }
 
-    public function transactions(): HasMany
+    public function isAdmin(): bool
     {
-        return $this->hasMany(Transaction::class);
+        return $this->role === 'superadmin';
     }
 
-    public function budgets(): HasMany
+    public function isStaff(): bool
     {
-        return $this->hasMany(Budget::class, 'created_by');
+        return $this->role === 'staff';
     }
 
-    public function fundRequests(): HasMany
+    public function isUser(): bool
     {
-        return $this->hasMany(FundRequest::class, 'requested_by');
+        return $this->role === 'user';
     }
 
-    public function memberDues(): HasMany
-    {
-        return $this->hasMany(MemberDue::class);
-    }
-
-    public function notifications(): HasMany
-    {
-        return $this->hasMany(AppNotification::class);
-    }
-
-    public function auditTrails(): HasMany
-    {
-        return $this->hasMany(AuditTrail::class);
-    }
-
-    public function isKetua(): bool
-    {
-        return $this->role === 'ketua';
-    }
-
-    public function isBendahara(): bool
-    {
-        return $this->role === 'bendahara';
-    }
-
-    public function isPengurus(): bool
-    {
-        return $this->role === 'pengurus';
-    }
-
-    public function isAnggota(): bool
-    {
-        return $this->role === 'anggota';
-    }
+    public function roleBadge(): string
+{
+    return match ($this->role) {
+        'superadmin' => 'danger',
+        'staff' => 'primary',
+        default => 'dark',
+    };
+}
 
     public function canApprove(): bool
     {
-        return in_array($this->role, ['ketua', 'bendahara']);
+        return in_array($this->role, ['superadmin', 'staff']);
     }
 }

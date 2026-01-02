@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Transaksi;
 use App\Models\Anggaran;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -19,8 +18,8 @@ class DashboardController extends Controller
         // ANGGARAN - Menghitung penyerapan dari total pengeluaran
         $totalAnggaran = Anggaran::sum('jumlah_anggaran') ?? 0;
         $anggaranTerpakai = $totalKeluar;
-        $persenAnggaran = $totalAnggaran > 0 
-            ? ($anggaranTerpakai / $totalAnggaran) * 100 
+        $persenAnggaran = $totalAnggaran > 0
+            ? ($anggaranTerpakai / $totalAnggaran) * 100
             : 0;
 
         // TRANSAKSI TERBARU
@@ -34,7 +33,7 @@ $grafikBulanan = Transaksi::select(
     DB::raw("SUM(CASE WHEN jenis = 'keluar' THEN jumlah ELSE 0 END) as keluar")
 )
 // Hapus atau sesuaikan filter tahun ini jika ingin melihat semua data
-// ->whereYear('tanggal', date('Y')) 
+// ->whereYear('tanggal', date('Y'))
 ->groupBy('bulan')
 ->orderBy('bulan')
 ->get();
