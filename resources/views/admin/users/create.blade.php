@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Nama <span class="text-danger">*</span></label>
-                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" 
+                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
                            value="{{ old('name') }}" required>
                     @error('name')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -18,7 +18,7 @@
                 </div>
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Email <span class="text-danger">*</span></label>
-                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" 
+                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
                            value="{{ old('email') }}" required>
                     @error('email')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -38,10 +38,9 @@
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Role <span class="text-danger">*</span></label>
                     <select name="role" class="form-select @error('role') is-invalid @enderror" required>
-                        <option value="anggota" {{ old('role') === 'anggota' ? 'selected' : '' }}>Anggota</option>
-                        <option value="pengurus" {{ old('role') === 'pengurus' ? 'selected' : '' }}>Pengurus</option>
-                        <option value="bendahara" {{ old('role') === 'bendahara' ? 'selected' : '' }}>Bendahara</option>
-                        <option value="ketua" {{ old('role') === 'ketua' ? 'selected' : '' }}>Ketua</option>
+                        <option value="superadmin" {{ old('role') === 'superadmin' ? 'selected' : '' }}>SuperAdmin</option>
+                        <option value="staff" {{ old('role') === 'staff' ? 'selected' : '' }}>Staff</option>
+                        <option value="user" {{ old('role') === 'user' ? 'selected' : '' }}>User</option>
                     </select>
                     @error('role')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -50,11 +49,7 @@
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Telepon</label>
                     <input type="text" name="phone" class="form-control" value="{{ old('phone') }}">
-                </div>
-                <div class="col-md-12 mb-3">
-                    <label class="form-label">Alamat</label>
-                    <textarea name="address" class="form-control" rows="2">{{ old('address') }}</textarea>
-                </div>
+
                 <div class="col-md-12 mb-3 form-check">
                     <input type="checkbox" name="is_active" class="form-check-input" id="is_active" checked>
                     <label class="form-check-label" for="is_active">Aktif</label>

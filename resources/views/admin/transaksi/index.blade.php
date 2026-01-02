@@ -34,14 +34,14 @@
                         <span class="input-group-text bg-dark border-0 text-secondary" style="border-radius: 10px 0 0 10px;">
                             <i class="fas fa-search"></i>
                         </span>
-                        <input type="text" name="search" class="form-control bg-dark text-white border-0 py-2 shadow-none" 
+                        <input type="text" name="search" class="form-control bg-dark text-white border-0 py-2 shadow-none"
                                style="border-radius: 0 10px 10px 0;" placeholder="Cari kategori atau keterangan..." value="{{ request('search') }}">
                     </div>
                 </div>
 
                 <div class="col-md-4 d-flex align-items-end gap-2 pt-md-4">
                     <button type="submit" class="btn btn-primary flex-grow-1 py-2 fw-bold" style="border-radius: 10px;">
-                        Terapkan Filter
+                        Cari
                     </button>
                     <a href="{{ route('transaksi.index') }}" class="btn btn-outline-secondary py-2 px-3" style="border-radius: 10px;">
                         <i class="fas fa-undo"></i>
@@ -148,7 +148,7 @@
     .bg-dark { background-color: #0d1117 !important; }
     .shadow-blue { box-shadow: 0 8px 20px rgba(13, 110, 253, 0.2); }
     .x-small { font-size: 0.75rem; }
-    
+
     .table-hover tbody tr { transition: 0.2s; }
     .table-hover tbody tr:hover {
         background-color: rgba(255, 255, 255, 0.03) !important;
@@ -166,7 +166,7 @@
         border: none;
         background: transparent;
     }
-    
+
     .btn-icon-hover:hover {
         background-color: rgba(255, 255, 255, 0.08);
     }

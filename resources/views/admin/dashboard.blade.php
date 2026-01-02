@@ -60,7 +60,7 @@
                     <h1 class="fw-bold mb-0 text-primary">{{ round($persenAnggaran) }}%</h1>
                     <p class="text-secondary small mb-3">Anggaran Telah Digunakan</p>
                     <div class="progress mb-3" style="height:12px; background-color: #1a1a1a;">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary shadow-sm" 
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary shadow-sm"
                              style="width: {{ min($persenAnggaran,100) }}%"></div>
                     </div>
                     <div class="d-flex justify-content-between small text-white-50">
@@ -162,18 +162,18 @@ new Chart(document.getElementById('monthlyChart'), {
     data: {
         labels: labels,
         datasets: [
-            { 
-                label:'Pemasukan', 
-                data:pemasukan, 
-                borderColor:'#0d6efd', 
+            {
+                label:'Pemasukan',
+                data:pemasukan,
+                borderColor:'#0d6efd',
                 backgroundColor: 'rgba(13, 110, 253, 0.1)',
                 fill: true,
                 tension:.4
             },
-            { 
-                label:'Pengeluaran', 
-                data:pengeluaran, 
-                borderColor:'#0dcaf0', 
+            {
+                label:'Pengeluaran',
+                data:pengeluaran,
+                borderColor:'#0dcaf0',
                 backgroundColor: 'rgba(13, 202, 240, 0.05)',
                 fill: true,
                 tension:.4
@@ -185,8 +185,8 @@ new Chart(document.getElementById('monthlyChart'), {
         plugins: {
             legend: { labels: { color: '#adb5bd' } }
         },
-        scales:{ 
-            y:{ 
+        scales:{
+            y:{
                 grid: { color: 'rgba(255,255,255,0.05)' },
                 ticks: { color: '#6c757d' }
             },

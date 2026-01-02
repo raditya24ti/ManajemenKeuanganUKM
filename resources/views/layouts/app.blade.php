@@ -120,12 +120,12 @@
 <div class="content">
 
     {{-- NAVBAR --}}
-    <div class="topbar d-flex justify-content-between align-items-center">
+    {{-- <div class="topbar d-flex justify-content-between align-items-center">
         <h6 class="mb-0">Dashboard</h6>
         <div>
             <i class="fas fa-user-circle me-1"></i> Admin
         </div>
-    </div>
+    </div> --}}
 
     {{-- MAIN --}}
     <div class="main">
