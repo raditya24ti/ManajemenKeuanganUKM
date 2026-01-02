@@ -1,3 +1,10 @@
+:root {
+    --bg-dark-primary: #0f111a;    /* Latar belakang utama */
+    --bg-dark-secondary: #1a1d27;  /* Latar belakang card/tabel */
+    --text-white: #ffffff;
+    --text-muted: #94a3b8;
+    --border-color: #2d313e;       /* Warna garis pemisah */
+}
 @import 'tailwindcss';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';

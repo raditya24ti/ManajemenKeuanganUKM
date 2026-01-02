@@ -13,7 +13,7 @@ public function index(Request $request)
     // 1️⃣ BUAT QUERY TERLEBIH DAHULU
     $query = User::query();
 
-    // 2️⃣ BARU GUNAKAN QUERY
+    // 2️⃣ FILTER BERDASARKAN PENCARIAN (Nama atau Email)
     if ($request->filled('search')) {
         $query->where(function ($q) use ($request) {
             $q->where('name', 'like', '%' . $request->search . '%')
@@ -21,11 +21,16 @@ public function index(Request $request)
         });
     }
 
-    // 3️⃣ EKSEKUSI QUERY
+    // 3️⃣ FILTER BERDASARKAN ROLE (Fitur Baru)
+    if ($request->filled('role')) {
+        $query->where('role', $request->role);
+    }
+
+    // 4️⃣ EKSEKUSI QUERY
     $users = $query->orderBy('role')
                    ->orderBy('name')
                    ->paginate(20)
-                   ->withQueryString();
+                   ->withQueryString(); // Menjaga filter tetap ada saat pindah halaman (pagination)
 
     return view('admin.users.index', compact('users'));
 }
