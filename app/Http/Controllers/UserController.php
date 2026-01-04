@@ -8,32 +8,32 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-public function index(Request $request)
-{
-    // 1️⃣ BUAT QUERY TERLEBIH DAHULU
-    $query = User::query();
+    public function index(Request $request)
+    {
+        // 1️⃣ BUAT QUERY TERLEBIH DAHULU
+        $query = User::query();
 
-    // 2️⃣ FILTER BERDASARKAN PENCARIAN (Nama atau Email)
-    if ($request->filled('search')) {
-        $query->where(function ($q) use ($request) {
-            $q->where('name', 'like', '%' . $request->search . '%')
-              ->orWhere('email', 'like', '%' . $request->search . '%');
-        });
+        // 2️⃣ FILTER BERDASARKAN PENCARIAN (Nama atau Email)
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%')
+                    ->orWhere('email', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        // 3️⃣ FILTER BERDASARKAN ROLE (Fitur Baru)
+        if ($request->filled('role')) {
+            $query->where('role', $request->role);
+        }
+
+        // 4️⃣ EKSEKUSI QUERY
+        $users = $query->orderBy('role')
+            ->orderBy('name')
+            ->paginate(20)
+            ->withQueryString(); // Menjaga filter tetap ada saat pindah halaman (pagination)
+
+        return view('admin.users.index', compact('users'));
     }
-
-    // 3️⃣ FILTER BERDASARKAN ROLE (Fitur Baru)
-    if ($request->filled('role')) {
-        $query->where('role', $request->role);
-    }
-
-    // 4️⃣ EKSEKUSI QUERY
-    $users = $query->orderBy('role')
-                   ->orderBy('name')
-                   ->paginate(20)
-                   ->withQueryString(); // Menjaga filter tetap ada saat pindah halaman (pagination)
-
-    return view('admin.users.index', compact('users'));
-}
     public function create()
     {
         return view('admin.users.create');

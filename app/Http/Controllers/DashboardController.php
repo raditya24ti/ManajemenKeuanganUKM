@@ -26,23 +26,23 @@ class DashboardController extends Controller
         $transaksiTerbaru = Transaksi::latest()->take(5)->get();
 
         // GRAFIK BULANAN - Menggunakan kolom 'tanggal' dari tabel Anda
-      // DashboardController.php
-$grafikBulanan = Transaksi::select(
-    DB::raw("MONTH(tanggal) as bulan"),
-    DB::raw("SUM(CASE WHEN jenis = 'masuk' THEN jumlah ELSE 0 END) as masuk"),
-    DB::raw("SUM(CASE WHEN jenis = 'keluar' THEN jumlah ELSE 0 END) as keluar")
-)
-// Hapus atau sesuaikan filter tahun ini jika ingin melihat semua data
-// ->whereYear('tanggal', date('Y'))
-->groupBy('bulan')
-->orderBy('bulan')
-->get();
+        // DashboardController.php
+        $grafikBulanan = Transaksi::select(
+            DB::raw("MONTH(tanggal) as bulan"),
+            DB::raw("SUM(CASE WHEN jenis = 'masuk' THEN jumlah ELSE 0 END) as masuk"),
+            DB::raw("SUM(CASE WHEN jenis = 'keluar' THEN jumlah ELSE 0 END) as keluar")
+        )
+            // Hapus atau sesuaikan filter tahun ini jika ingin melihat semua data
+            // ->whereYear('tanggal', date('Y'))
+            ->groupBy('bulan')
+            ->orderBy('bulan')
+            ->get();
 
         // RINGKASAN KATEGORI - Mengelompokkan berdasarkan kolom 'kategori' (Varchar)
         $kategoriSummary = Transaksi::select(
-                'kategori',
-                DB::raw('SUM(jumlah) as total')
-            )
+            'kategori',
+            DB::raw('SUM(jumlah) as total')
+        )
             ->where('jenis', 'keluar')
             ->groupBy('kategori')
             ->get();

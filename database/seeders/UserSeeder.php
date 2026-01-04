@@ -16,17 +16,68 @@ class UserSeeder extends Seeder
 
         // DAFTAR NAMA DEPAN
         $firstNames = [
-            'Ahmad','Aisyah','Bagus','Bima','Cahya','Dinda','Dewi','Eka','Fajar','Fikri',
-            'Galang','Gita','Hadi','Hana','Ilham','Indah','Irfan','Jihan','Joko','Karin',
-            'Lutfi','Laila','Mira','Nabila','Nanda','Putra','Putri','Rafi','Rina','Rizki',
-            'Salsa','Sinta','Taufik','Tia','Umar','Vina','Wahyu','Yani','Yusuf','Zahra'
+            'Ahmad',
+            'Aisyah',
+            'Bagus',
+            'Bima',
+            'Cahya',
+            'Dinda',
+            'Dewi',
+            'Eka',
+            'Fajar',
+            'Fikri',
+            'Galang',
+            'Gita',
+            'Hadi',
+            'Hana',
+            'Ilham',
+            'Indah',
+            'Irfan',
+            'Jihan',
+            'Joko',
+            'Karin',
+            'Lutfi',
+            'Laila',
+            'Mira',
+            'Nabila',
+            'Nanda',
+            'Putra',
+            'Putri',
+            'Rafi',
+            'Rina',
+            'Rizki',
+            'Salsa',
+            'Sinta',
+            'Taufik',
+            'Tia',
+            'Umar',
+            'Vina',
+            'Wahyu',
+            'Yani',
+            'Yusuf',
+            'Zahra'
         ];
 
         // DAFTAR NAMA BELAKANG
         $lastNames = [
-            'Aditya','Andriani','Ardiansyah','Fauzi','Firmansyah','Hidayat','Kurniawan',
-            'Maulana','Nugroho','Prasetyo','Ramadhan','Saputra','Setiawan',
-            'Siregar','Sukmawati','Wijaya','Wibowo','Yuliana'
+            'Aditya',
+            'Andriani',
+            'Ardiansyah',
+            'Fauzi',
+            'Firmansyah',
+            'Hidayat',
+            'Kurniawan',
+            'Maulana',
+            'Nugroho',
+            'Prasetyo',
+            'Ramadhan',
+            'Saputra',
+            'Setiawan',
+            'Siregar',
+            'Sukmawati',
+            'Wijaya',
+            'Wibowo',
+            'Yuliana'
         ];
 
         // 2️⃣ 99 USER RANDOM

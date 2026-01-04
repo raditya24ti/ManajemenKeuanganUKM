@@ -9,12 +9,13 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up() {
+    public function up()
+    {
         Schema::table('users', function (Blueprint $table) {
             // Kita gunakan condition 'hasColumn' supaya tidak error duplicate lagi
-                if (!Schema::hasColumn('users', 'role')) {
-                    $table->string('role')->default('superadmin');
-                }
+            if (!Schema::hasColumn('users', 'role')) {
+                $table->string('role')->default('superadmin');
+            }
             if (!Schema::hasColumn('users', 'phone')) {
                 $table->string('phone')->nullable();
             }

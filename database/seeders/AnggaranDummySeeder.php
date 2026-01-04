@@ -39,7 +39,7 @@ class AnggaranDummySeeder extends Seeder
                     'nama_anggaran'   => $item['nama'],
                     'kategori'        => $item['kat'],
                     'jumlah_anggaran' => $faker->numberBetween(1000000, 10000000),
-                    'periode'         => "2025-" . str_pad($bulan, 2, '0', STR_PAD_LEFT), 
+                    'periode'         => "2025-" . str_pad($bulan, 2, '0', STR_PAD_LEFT),
                     'keterangan'      => 'Rencana alokasi dana untuk ' . $item['nama'],
                     'created_at'      => now(),
                     'updated_at'      => now(),

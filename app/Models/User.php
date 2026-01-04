@@ -67,13 +67,13 @@ class User extends Authenticatable
     }
 
     public function roleBadge(): string
-{
-    return match ($this->role) {
-        'superadmin' => 'danger',
-        'staff' => 'primary',
-        'user' => 'dark',
-    };
-}
+    {
+        return match ($this->role) {
+            'superadmin' => 'danger',
+            'staff' => 'primary',
+            'user' => 'dark',
+        };
+    }
 
     public function canApprove(): bool
     {

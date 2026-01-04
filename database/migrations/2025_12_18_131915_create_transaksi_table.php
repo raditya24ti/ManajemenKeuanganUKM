@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
-    $table->date('tanggal');
-    $table->enum('jenis', ['masuk', 'keluar']);
-    $table->string('kategori');
-    $table->integer('jumlah');
-    $table->text('keterangan')->nullable();
-    $table->timestamps();
+            $table->date('tanggal');
+            $table->enum('jenis', ['masuk', 'keluar']);
+            $table->string('kategori');
+            $table->integer('jumlah');
+            $table->text('keterangan')->nullable();
+            $table->timestamps();
         });
     }
 

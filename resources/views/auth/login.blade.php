@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Manajemen Keuangan UKM</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+
     <style>
         * {
             margin: 0;
@@ -31,8 +32,22 @@
             filter: blur(80px);
             z-index: -1;
         }
-        .circle-1 { width: 300px; height: 300px; top: -100px; right: -50px; opacity: 0.5; }
-        .circle-2 { width: 400px; height: 400px; bottom: -150px; left: -100px; opacity: 0.3; }
+
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            right: -50px;
+            opacity: 0.5;
+        }
+
+        .circle-2 {
+            width: 400px;
+            height: 400px;
+            bottom: -150px;
+            left: -100px;
+            opacity: 0.3;
+        }
 
         .login-container {
             width: 100%;
@@ -147,6 +162,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <div class="circle circle-1"></div>
@@ -177,7 +193,7 @@
                 <i class="fas fa-lock"></i>
                 <input type="password" name="password" placeholder="Password" required>
             </div>
-            
+
             <button type="submit" class="btn-login">Masuk Ke Sistem</button>
         </form>
 
@@ -187,4 +203,5 @@
     </div>
 
 </body>
+
 </html>

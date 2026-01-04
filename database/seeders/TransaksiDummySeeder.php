@@ -14,13 +14,13 @@ class TransaksiDummySeeder extends Seeder
 
         for ($i = 1; $i <= 50; $i++) {
             $jenis = $faker->randomElement(['masuk', 'keluar']);
-            
+
             Transaksi::create([ // Menggunakan Model Transaksi
                 'tanggal'    => $faker->dateTimeBetween('-1 year', 'now')->format('Y-m-d'),
                 'jenis'      => $jenis,
-                'kategori'   => ($jenis == 'masuk') ? 
-                                $faker->randomElement(['Iuran', 'Sponsorship', 'Hibah']) : 
-                                $faker->randomElement(['Konsumsi', 'Sewa', 'ATK']),
+                'kategori'   => ($jenis == 'masuk') ?
+                    $faker->randomElement(['Iuran', 'Sponsorship', 'Hibah']) :
+                    $faker->randomElement(['Konsumsi', 'Sewa', 'ATK']),
                 'jumlah'     => $faker->numberBetween(50000, 2000000),
                 'keterangan' => 'Dummy transaksi UKM',
             ]);

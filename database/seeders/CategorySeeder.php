@@ -15,7 +15,7 @@ class CategorySeeder extends Seeder
             ['name' => 'Donasi', 'type' => 'pemasukan', 'description' => 'Sumbangan dari donatur'],
             ['name' => 'Penjualan', 'type' => 'pemasukan', 'description' => 'Hasil penjualan produk/jasa'],
             ['name' => 'Bantuan', 'type' => 'pemasukan', 'description' => 'Bantuan dari pihak lain'],
-            
+
             // Pengeluaran
             ['name' => 'Operasional', 'type' => 'pengeluaran', 'description' => 'Biaya operasional harian'],
             ['name' => 'Kegiatan', 'type' => 'pengeluaran', 'description' => 'Biaya kegiatan organisasi'],

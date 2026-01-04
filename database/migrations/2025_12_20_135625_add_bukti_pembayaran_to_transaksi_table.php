@@ -9,13 +9,13 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-public function up()
-{
-    Schema::table('transaksi', function (Blueprint $table) {
-        // Hapus ->after('nominal') agar tidak mencari kolom yang tidak ada
-        $table->string('bukti_pembayaran')->nullable(); 
-    });
-}
+    public function up()
+    {
+        Schema::table('transaksi', function (Blueprint $table) {
+            // Hapus ->after('nominal') agar tidak mencari kolom yang tidak ada
+            $table->string('bukti_pembayaran')->nullable();
+        });
+    }
 
     /**
      * Reverse the migrations.
