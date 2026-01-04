@@ -7,11 +7,26 @@ use Illuminate\Http\Request;
 
 class AnggaranController extends Controller
 {
-    public function index()
-    {
-        $anggaran = Anggaran::latest()->get();
-        return view('admin.anggaran.index', compact('anggaran'));
+    public function index(Request $request)
+{
+    $query = Anggaran::query();
+
+    // Fitur Pencarian (Berdasarkan Nama Anggaran)
+    if ($request->has('search')) {
+        $query->where('nama_anggaran', 'like', '%' . $request->search . '%');
     }
+
+    // Fitur Filter Periode
+    if ($request->filled('periode')) {
+        $query->where('periode', $request->periode);
+    }
+
+    // Ambil data dengan Pagination (10 data per halaman)
+    // withQueryString memastikan filter tidak hilang saat pindah halaman pagination
+    $anggaran = $query->latest()->paginate(10)->withQueryString();
+
+    return view('admin.anggaran.index', compact('anggaran'));
+}
 
     public function create()
     {
