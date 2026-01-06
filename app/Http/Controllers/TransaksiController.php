@@ -27,7 +27,6 @@ class TransaksiController extends Controller
         }
 
         // 3. Fitur Pagination (menampilkan 10 data per halaman)
-        // withQueryString() penting agar saat pindah halaman, filter search tidak hilang
         $transaksi = $query->latest()->paginate(10)->withQueryString();
 
         return view('admin.transaksi.index', compact('transaksi'));
@@ -60,9 +59,6 @@ class TransaksiController extends Controller
 
             $validated['bukti_pembayaran'] = $path;
         }
-
-
-        // Gunakan $validated untuk keamanan
         Transaksi::create($validated);
 
         return redirect()->route('transaksi.index')

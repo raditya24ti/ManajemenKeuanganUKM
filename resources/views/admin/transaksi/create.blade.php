@@ -47,9 +47,9 @@
                                         style="border-radius: 12px;" required>
                                         <option value="" disabled selected>-- Pilih Jenis --</option>
                                         <option value="masuk" {{ old('jenis') == 'masuk' ? 'selected' : '' }}>🟢 Pemasukan
-                                            (Kredit)</option>
+                                            </option>
                                         <option value="keluar" {{ old('jenis') == 'keluar' ? 'selected' : '' }}>🔴
-                                            Pengeluaran (Debit)</option>
+                                            Pengeluaran </option>
                                     </select>
                                 </div>
                             </div>
@@ -157,7 +157,6 @@
     </style>
 
     <script>
-        // Preview nama file setelah di-upload
         document.getElementById('bukti_pembayaran').onchange = function() {
             document.getElementById('preview-text').innerHTML =
                 '<i class="fas fa-file-alt fs-3 text-success mb-2"></i><p class="text-white mb-0">' + this.files[0]

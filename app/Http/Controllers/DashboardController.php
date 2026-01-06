@@ -10,12 +10,12 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // TOTAL - Menghitung berdasarkan kolom 'jumlah' dan 'jenis' di database Anda
+        // TOTAL
         $totalMasuk = Transaksi::where('jenis', 'masuk')->sum('jumlah') ?? 0;
         $totalKeluar = Transaksi::where('jenis', 'keluar')->sum('jumlah') ?? 0;
         $saldo = $totalMasuk - $totalKeluar;
 
-        // ANGGARAN - Menghitung penyerapan dari total pengeluaran
+        // ANGGARAN 
         $totalAnggaran = Anggaran::sum('jumlah_anggaran') ?? 0;
         $anggaranTerpakai = $totalKeluar;
         $persenAnggaran = $totalAnggaran > 0
@@ -25,15 +25,13 @@ class DashboardController extends Controller
         // TRANSAKSI TERBARU
         $transaksiTerbaru = Transaksi::latest()->take(5)->get();
 
-        // GRAFIK BULANAN - Menggunakan kolom 'tanggal' dari tabel Anda
-        // DashboardController.php
+        // GRAFIK BULANAN 
         $grafikBulanan = Transaksi::select(
             DB::raw("MONTH(tanggal) as bulan"),
             DB::raw("SUM(CASE WHEN jenis = 'masuk' THEN jumlah ELSE 0 END) as masuk"),
             DB::raw("SUM(CASE WHEN jenis = 'keluar' THEN jumlah ELSE 0 END) as keluar")
         )
             // Hapus atau sesuaikan filter tahun ini jika ingin melihat semua data
-            // ->whereYear('tanggal', date('Y'))
             ->groupBy('bulan')
             ->orderBy('bulan')
             ->get();
@@ -56,7 +54,7 @@ class DashboardController extends Controller
             'persenAnggaran' => $persenAnggaran,
             'transaksiTerbaru' => $transaksiTerbaru,
             'grafikBulanan' => $grafikBulanan,
-            'kategori' => $kategoriSummary // variabel ini dikirim ke @forelse($kategori as $k) di view
+            'kategori' => $kategoriSummary 
         ]);
     }
 }

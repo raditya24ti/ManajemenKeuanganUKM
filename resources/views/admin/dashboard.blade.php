@@ -4,13 +4,11 @@
 @section('content')
     <div class="container-fluid py-4">
 
-        {{-- HEADER (Tanpa Tombol Tambah agar Dashboard Bersih & Fokus pada Data) --}}
         <div class="mb-4">
             <h2 class="text-white fw-bold mb-1">Dashboard Keuangan UKM</h2>
             <p class="text-secondary mb-0">Laporan ringkas arus kas dan penyerapan anggaran organisasi.</p>
         </div>
 
-        {{-- SUMMARY CARDS TEMA BIRU (Disesuaikan dengan Warna Logout) --}}
         <div class="row g-3 mb-4">
             @foreach ([['Pemasukan Kas', 'primary', $totalMasuk, 'fa-arrow-trend-up'], ['Pengeluaran Kas', 'info', $totalKeluar, 'fa-arrow-trend-down'], ['Saldo UKM', 'primary', $saldo, 'fa-wallet'], ['Total Anggaran', 'primary', $totalAnggaran, 'fa-chart-pie']] as [$label, $color, $value, $icon])
                 <div class="col-md-3">
@@ -139,7 +137,6 @@
         </div>
     </div>
 
-    {{-- CSS KHUSUS TEMA GELAP PREISI --}}
     <style>
         body {
             background-color: #0d1117;

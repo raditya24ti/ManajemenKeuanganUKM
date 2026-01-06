@@ -147,7 +147,7 @@
 
 </div>
 
-{{-- Tambahkan tombol kembali jika dia guest agar tidak terjebak --}}
+{{-- Tambahkan tombol kembali --}}
 @if(Auth::check() && Auth::user()->role === 'guest')
     <div class="floating-back">
         <form action="{{ route('logout') }}" method="POST">

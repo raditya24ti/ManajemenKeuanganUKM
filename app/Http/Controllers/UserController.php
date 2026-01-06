@@ -10,7 +10,6 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        // 1️⃣ BUAT QUERY TERLEBIH DAHULU
         $query = User::query();
 
         // 2️⃣ FILTER BERDASARKAN PENCARIAN (Nama atau Email)
@@ -30,7 +29,7 @@ class UserController extends Controller
         $users = $query->orderBy('role')
             ->orderBy('name')
             ->paginate(20)
-            ->withQueryString(); // Menjaga filter tetap ada saat pindah halaman (pagination)
+            ->withQueryString();
 
         return view('admin.users.index', compact('users'));
     }

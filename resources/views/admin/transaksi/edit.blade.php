@@ -81,8 +81,6 @@
         body {
             background-color: #0d1117;
         }
-
-        /* Custom Input Style agar Identik dengan Tambah Anggaran */
         .custom-input {
             background-color: #12151c !important;
             border: 1px solid #2d333b !important;
@@ -101,13 +99,10 @@
             background-color: #12151c !important;
         }
 
-        /* Select Option Styling */
         select.custom-input option {
             background-color: #1a1e26;
             color: white;
         }
-
-        /* Tombol Cyan Neon */
         .btn-cyan {
             background-color: #00e5ff;
             color: #000;
@@ -124,7 +119,6 @@
             box-shadow: 0 6px 20px rgba(0, 229, 255, 0.5);
         }
 
-        /* Date Picker Icon Color */
         input[type="date"]::-webkit-calendar-picker-indicator {
             filter: invert(1);
             cursor: pointer;

@@ -84,8 +84,6 @@
         body {
             background-color: #0d1117;
         }
-
-        /* Input Styling: Identik dengan Tambah Anggaran */
         .custom-input {
             background-color: #12151c !important;
             border: 1px solid #2d333b !important;
@@ -103,8 +101,6 @@
             box-shadow: 0 0 8px rgba(0, 229, 255, 0.2);
             outline: none;
         }
-
-        /* Tombol Cyan Neon */
         .btn-cyan {
             background-color: #00e5ff;
             color: #000;
@@ -120,8 +116,6 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(0, 229, 255, 0.5);
         }
-
-        /* Fix Icon Date/Month Picker */
         input[type="month"]::-webkit-calendar-picker-indicator {
             filter: invert(1);
             cursor: pointer;

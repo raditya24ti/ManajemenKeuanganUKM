@@ -22,7 +22,6 @@ class AnggaranController extends Controller
         }
 
         // Ambil data dengan Pagination (10 data per halaman)
-        // withQueryString memastikan filter tidak hilang saat pindah halaman pagination
         $anggaran = $query->latest()->paginate(10)->withQueryString();
 
         return view('admin.anggaran.index', compact('anggaran'));

@@ -73,7 +73,6 @@ class AuthController extends Controller
     
     public function guestLogin(Request $request)
 {
-    // Cari user guest yang baru saja kita buat
     $user = User::where('email', 'guest@mail.com')->first();
 
     if ($user) {
