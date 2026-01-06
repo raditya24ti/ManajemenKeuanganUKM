@@ -78,7 +78,6 @@
             letter-spacing: 1px;
         }
 
-        /* Memperbaiki teks keterangan agar terlihat jelas */
         .login-header p {
             color: #cbd5e1;
             font-size: 0.85rem;
@@ -133,6 +132,36 @@
             box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4);
         }
 
+        /* --- STYLE BARU TOMBOL GUEST --- */
+        .btn-guest {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 11px;
+            margin-top: 15px;
+            background: transparent;
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            color: #3b82f6;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .btn-guest:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+        }
+
+        .btn-guest i {
+            margin-right: 10px;
+        }
+        /* ------------------------------ */
+
         .footer-text {
             margin-top: 25px;
             color: #94a3b8;
@@ -149,7 +178,6 @@
             text-decoration: underline;
         }
 
-        /* Style untuk Error Alert */
         .alert-error {
             background: rgba(239, 68, 68, 0.2);
             border: 1px solid rgba(239, 68, 68, 0.3);
@@ -196,6 +224,10 @@
 
             <button type="submit" class="btn-login">Masuk Ke Sistem</button>
         </form>
+
+        <a href="{{ route('login.guest') }}" class="btn-guest">
+            <i class="fas fa-user-shield"></i> Masuk sebagai Tamu
+        </a>
 
         <div class="footer-text">
             Belum punya akun? <a href="{{ route('register') }}">Daftar Sekarang</a>
