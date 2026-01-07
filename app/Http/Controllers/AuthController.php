@@ -52,7 +52,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'superadmin',
+            'role' => 'user',
         ]);
 
         Auth::login($user);
@@ -70,7 +70,7 @@ class AuthController extends Controller
         return redirect('/auth');
     }
 
-    
+
     public function guestLogin(Request $request)
 {
     $user = User::where('email', 'guest@mail.com')->first();
