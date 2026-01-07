@@ -225,10 +225,6 @@
             <button type="submit" class="btn-login">Masuk Ke Sistem</button>
         </form>
 
-        <a href="{{ route('login.guest') }}" class="btn-guest">
-            <i class="fas fa-user-shield"></i> Masuk sebagai Tamu
-        </a>
-
         <div class="footer-text">
             Belum punya akun? <a href="{{ route('register') }}">Daftar Sekarang</a>
         </div>

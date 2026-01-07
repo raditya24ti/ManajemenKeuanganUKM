@@ -2,41 +2,48 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+Route::resource('users', UserController::class);
+
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\TransaksiController;
-use App\Http\Controllers\AnggaranController;
-use App\Http\Controllers\AuthController;
-
-// --- AKSES PUBLIK (Bisa diakses tanpa login) ---
-Route::get('/', function () {
-    return view('welcome');
-});
-
-// Guest Login - Harus di luar middleware auth agar bisa diklik saat belum login
-Route::get('/guest-login', [AuthController::class, 'guestLogin'])->name('login.guest');
-
-// Login & Register
-Route::get('/auth', [AuthController::class, 'index'])->name('login');
-Route::post('/auth/login', [AuthController::class, 'login'])->name('login.process');
-Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
-Route::post('/register', [AuthController::class, 'register'])->name('register.process');
-
-// Dashboard - Dipindah ke sini agar Tamu bisa melihat tanpa terlempar balik ke login
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+Route::get('/', function () {
+    return view ('welcome');
+});
 
-// --- AKSES TERPROTEKSI (Harus Login) ---
+use App\Http\Controllers\TransaksiController;
+Route::resource('transaksi', TransaksiController::class);
+
+use App\Http\Controllers\AnggaranController;
+Route::resource('anggaran', AnggaranController::class);
+
+use App\Http\Controllers\AuthController;
+    // Login
+    Route::get('/auth', [AuthController::class, 'index'])->name('login');
+    Route::post('/auth/login', [AuthController::class, 'login'])->name('login.process');
+
+    // Register
+    Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+    Route::post('/register', [AuthController::class, 'register'])->name('register.process');
+
 Route::middleware('auth')->group(function () {
+
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    // Route untuk Superadmin
-    Route::middleware('role:superadmin')->group(function () {
-        Route::resource('users', UserController::class);
-        Route::resource('anggaran', AnggaranController::class);
-    });
 
-    // Route untuk Superadmin dan Staff
-    Route::middleware('role:superadmin,staff')->group(function () {
-        Route::resource('transaksi', TransaksiController::class);
-    });
+//   Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
+});
+
+Route::middleware(['auth', 'role:superadmin,staff'])->group(function () {
+    Route::resource('transaksi', TransaksiController::class);
+});
+
+Route::middleware(['auth', 'role:superadmin'])->group(function () {
+    Route::resource('users', UserController::class);
+    Route::resource('anggaran', AnggaranController::class);
+    Route::get('/anggaran/create', [AnggaranController::class, 'create'])->name('anggaran.create');
+    Route::post('/anggaran', [AnggaranController::class, 'store'])->name('anggaran.store');
+    Route::get('/anggaran/{anggaran}/edit', [AnggaranController::class, 'edit'])->name('anggaran.edit');
+    Route::put('/anggaran/{anggaran}', [AnggaranController::class, 'update'])->name('anggaran.update');
+    Route::delete('/anggaran/{anggaran}', [AnggaranController::class, 'destroy'])->name('anggaran.destroy');
 });

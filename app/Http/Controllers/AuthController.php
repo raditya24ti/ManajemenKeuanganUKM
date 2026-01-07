@@ -69,18 +69,4 @@ class AuthController extends Controller
 
         return redirect('/auth');
     }
-
-
-    public function guestLogin(Request $request)
-{
-    $user = User::where('email', 'guest@mail.com')->first();
-
-    if ($user) {
-        Auth::login($user); // Login otomatis ke sistem
-        $request->session()->regenerate();
-        return redirect('/dashboard');
-    }
-
-    return redirect('/auth')->withErrors(['email' => 'Akun Guest belum dibuat!']);
-}
 }
