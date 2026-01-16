@@ -53,6 +53,21 @@ class TransaksiController extends Controller
             'bukti_pembayaran' => 'nullable|image|max:2048',
         ]);
 
+        // Hitung saldo UKM saat ini
+    $totalMasuk = Transaksi::where('jenis', 'masuk')->sum('jumlah');
+    $totalKeluar = Transaksi::where('jenis', 'keluar')->sum('jumlah');
+    $saldoUKM = $totalMasuk - $totalKeluar;
+
+    //  Validasi: pengeluaran tidak boleh melebihi saldo
+    if ($request->jenis === 'keluar' && $request->jumlah > $saldoUKM) {
+        return back()
+            ->withErrors([
+                'jumlah' => 'Saldo UKM tidak mencukupi untuk transaksi ini.',
+            ])
+            ->withInput();
+    }
+
+
         if ($request->hasFile('bukti_pembayaran')) {
             $path = $request->file('bukti_pembayaran')
                 ->store('bukti', 'public');
